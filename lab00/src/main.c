@@ -10,5 +10,4 @@ int main(void) {
     printf("Message: I can use GitHub for CS2413 labs!\n");
 
     return 0;
-
 }
