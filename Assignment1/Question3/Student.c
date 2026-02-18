@@ -1,4 +1,4 @@
-#include "Student.h"
+#include "student.h"
 #include <stdlib.h>
 
 //You are given a large integer represented as an integer array digits, where:
