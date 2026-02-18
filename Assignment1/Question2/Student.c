@@ -1,4 +1,4 @@
-#include "student.h"
+#include "Student.h"
 
 //Given an array nums of size n, return the majority element.
 
@@ -15,8 +15,18 @@
 
 
 int majorityElement(int* nums, int numsSize) {
-     // TODO: implement
+     // Count numbers
+     int times = 0, maj = *nums;
+     for (int *i=nums; i<(nums+numsSize); i++) {
+          times = 0;
+          for(int *j=nums; j<(nums+numsSize); j++) // count how many times the number appears
+               if(*j == *i) times++;
 
+          if (times > numsSize/2) { // if majority is found exit out of loop early
+               maj = *i;
+               break;
+          }
+     }
 
-
+     return maj;
 }
