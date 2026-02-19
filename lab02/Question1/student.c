@@ -54,6 +54,28 @@ bool isValid(const char *s) {
     // Note:
     // - Input contains only bracket characters, per the prompt.
 
+
+    // Check if string exists, return false if it doesn't
+    if (s == NULL) return false; // String does not exists, can't be valid
+
+    int strSize = strlen(s);
+    // Check if string length is even or odd, if odd string can't be valid, return false 
+    if(strSize%2 == 1) return false;
+    
+    // Create Stack to half the size of the string (covers all cases)
+    char stack[strSize/2];
+    int end = -1;
+    for(int i=0; i<strSize; i++) {
+        if(s[i] == '(' || s[i] == '[' || s[i] == '{' ) { // push open delimiter
+            stack[++end] = s[i];
+        } else { // check delimiter
+            if((stack[end] == '(' && s[i] == ')') || (stack[end] == '[' && s[i] == ']') || (stack[end] == '{' && s[i] == '}')) {
+                end--; // pop
+            } else return false; // mismatched delimiters, string can't be valid, return false   
+        }
+    }
+
+
     (void)s; // remove after implementing
-    return false; // placeholder
+    return true; // String is valid, all delimiters are matched
 }
