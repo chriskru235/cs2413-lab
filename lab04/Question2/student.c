@@ -49,7 +49,21 @@ struct TreeNode {
 };
 
 
+bool compareNodes(struct TreeNode* leftSTNode, struct TreeNode* rightSTNode) {
+  if(leftSTNode == NULL || rightSTNode == NULL)
+    return (leftSTNode == NULL && rightSTNode == NULL); // returns false [one is null] or true [both are null]
+  
+  // visit nodes
+  if (leftSTNode->val != rightSTNode->val) return false; // values do not match
+
+  // visit left and right subtrees
+  return compareNodes(leftSTNode->left, rightSTNode->right) && compareNodes(leftSTNode->right, rightSTNode->left);
+}
+
 
 bool isSymmetric(struct TreeNode* root) {
-  // TODO: implement
+  if (root == NULL) return true;
+  // compare subtrees 
+  // preorder traversal on left anr right subtree concurrently
+  return compareNodes(root->left, root->right);
 }

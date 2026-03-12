@@ -49,6 +49,8 @@ Note:
 /*
  * Definition for a binary tree node.
  */
+
+ #include <stdio.h>
 struct TreeNode {
     int val;
     struct TreeNode *left;
@@ -56,6 +58,22 @@ struct TreeNode {
 };
 
 
+int traversal(struct TreeNode* node, int prev) {
+    if (node == NULL) // digit does not exists, treat as 0, (This should only occur on empty trees)
+        return 0;
+
+    // tree exists
+    int sum = node->val + prev*10;
+    if (node->left == NULL && node->right == NULL) { // end of digit
+        return sum;
+    } else { // node has children, continue formatting digit
+        sum = traversal(node->left, sum) + traversal(node->right, sum);
+        return sum;
+    }
+        
+}
+
 int sumNumbers(struct TreeNode* root) {
-      // TODO: implement
+    if(root == NULL) return 0; // empty tree, base case
+    return traversal(root, 0);
 }
