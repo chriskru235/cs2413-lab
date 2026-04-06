@@ -33,40 +33,40 @@ The root of that heap will be the kth largest element.
 
 #include <stdlib.h>
 
-/*
-Optional helper function declarations.
-
-You may use them, modify them, or remove them if you prefer your own design.
-*/
 static void swap(int* a, int* b);
-static void heapifyUp(int* heap, int index);
-static void heapifyDown(int* heap, int size, int index);
+static void heapifyDown(int *heap, int size, int index);
 
 /*
 Return the kth largest element in nums.
 */
 int findKthLargest(int* nums, int numsSize, int k) {
-    /* Write your code here */
-    return 0;
+    for (int i=(numsSize/2) - 1; i >= 0; i--) // Initial heap
+        heapifyDown(nums, numsSize, i);
+
+    for (int i = numsSize - 1; i > 0; i--) { // Reduced heap
+        swap(nums, nums+i);
+        heapifyDown(nums, i, 0);
+    }
+
+    return nums[numsSize - k];
 }
 
-/*
-Optional helper: swap two integers.
-*/
 static void swap(int* a, int* b) {
-    /* Write your code here if you use this helper */
+    int temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
-/*
-Optional helper: restore min-heap order from a node upward.
-*/
-static void heapifyUp(int* heap, int index) {
-    /* Write your code here if you use this helper */
-}
+static void heapifyDown(int *heap, int size, int index) {
+    int largest = index; // root node index
+    int left = 2 * index + 1; // left child node index
+    int right = 2 * index + 2; // right child node index
 
-/*
-Optional helper: restore min-heap order from a node downward.
-*/
-static void heapifyDown(int* heap, int size, int index) {
-    /* Write your code here if you use this helper */
+    if (left < size && heap[left] > heap[largest]) largest = left;
+    if (right < size && heap[right] > heap[largest]) largest = right;
+
+    if (largest != index) { // largest is not the root
+        swap(heap + index, heap + largest);
+        heapifyDown(heap, size, largest);
+    }
 }

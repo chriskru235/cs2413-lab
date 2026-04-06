@@ -8,6 +8,17 @@
 // The value at adj[u][v] is 1 if there is an edge between nodes u and v, and 0 otherwise.
 
 int has_triangle(Graph* g) {
-    // TODO: implement
-    // return -1;
+    int tri = 0;
+    for(int u=0; u<MAX_NODES; u++) {
+        for(int v=u+1; v<MAX_NODES;v++) {
+            if(g->adj[u][v] == 1) { // nodeA -> nodeB
+                for (int w=v+1; w<MAX_NODES; w++){
+                    tri = g->adj[v][w] && g->adj[w][u]; // nodeB -> nodeC && nodeC -> nodeA
+                    if (tri) return tri; // triangle has been found, otherwise continue searching
+                }
+            }
+        }
+    }
+
+    return tri;
 }

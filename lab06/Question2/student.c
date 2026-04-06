@@ -11,9 +11,14 @@
 
 
 int count_isolated(Graph* g) {
-    // TODO: implement
-    // return -1;
-   
+    int total = MAX_NODES;
+    for(int u=0; u<MAX_NODES; u++)
+        for(int v=0; v<MAX_NODES;v++)
+            if(g->adj[u][v] == 1 && g->adj[v][u] == g->adj[u][v]) {
+                total--;
+                break;
+            }
+    return total;
 }
 
 
