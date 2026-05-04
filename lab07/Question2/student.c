@@ -28,9 +28,42 @@ Notes:
 - You may use temporary arrays inside your merge function.
 */
 
+void merge(int arr[], int left, int mid, int right) {
+    int temp[right+1]; // temp array
+    int i=left;
+    int j=mid+1;
+    int index = 0;
+
+    while(i <= mid && j <= right) {
+        if(arr[i] < arr[j])
+            temp[index++] = arr[i++];
+        else
+            temp[index++] = arr[j++];
+    } 
+
+    if (i > mid)
+        while(j <= right) temp[index++] = arr[j++];
+    else
+        while(i <= mid) temp[index++] = arr[i++];
+
+    // Copy temp to arr
+    for (int k=0; k<index; arr[k+left] = temp[k], k++);
+}
+
+void mergeSortHelper(int arr[], int left, int right) {
+    if (left < right) {
+        int mid = (left + right) / 2;
+        mergeSortHelper(arr, left, mid);
+        mergeSortHelper(arr, mid+1, right);
+        merge(arr, left, mid, right);
+    }
+}
+
+
 void mergeSort(int arr[], int size) {
     // TODO: implement merge sort
     (void)arr;
     (void)size;
+    mergeSortHelper(arr, 0, size-1);
 }
 

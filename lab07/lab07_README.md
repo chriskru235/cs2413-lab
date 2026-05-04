@@ -67,7 +67,7 @@ This helps you see which test cases are correct and which ones still need work.
 4. Check the output and fix any failed test cases.
 
 ---
-
+w
 ## Reminder
 
 Read the comments in each `student.c` file carefully before writing your solution.

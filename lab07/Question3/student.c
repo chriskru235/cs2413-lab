@@ -32,9 +32,45 @@ Notes:
 - The sorting should be done in ascending order.
 */
 
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int partition(int arr[], int low, int high) {
+    int left=low, right=high, loc = low, flag = 0;
+    while(!flag) {
+        while (arr[loc] <= arr[right] && loc != right) right--;
+        if(loc == right) flag = 1;
+        else if(arr[loc] > arr[right]) {
+            swap(arr+loc, arr+right);
+            loc = right;
+        }
+
+        if(!flag) {
+            while(arr[loc] >= arr[left] && loc != left) left++;
+            if(loc == left) flag = 1;
+            else if(arr[loc] < arr[left]) {
+                swap(arr+loc, arr+left);
+                loc = left;
+            }
+        }
+    }
+
+    return loc;
+}
+
+void quickSortHelper(int arr[], int low, int high) {
+    if(low < high) {
+        int loc = partition(arr, low, high);
+        quickSortHelper(arr, low, loc-1);
+        quickSortHelper(arr, loc+1, high);
+    }
+
+}
+
 void quickSort(int arr[], int size) {
-    // TODO: implement quick sort
-    (void)arr;
-    (void)size;
+    quickSortHelper(arr, 0, size-1);
 }
 
